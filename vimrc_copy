@@ -1,0 +1,219 @@
+"disable Arrow keys in Escape mode and Insert mode
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+imap <up> <nop>
+imap <down> <nop>
+imap <left> <nop>
+imap <right> <nop>
+
+syntax on
+set number
+set tabstop=2
+set hlsearch
+set noshowmatch
+set timeout timeoutlen=10 ttimeoutlen=10
+"highlight LineMr ctermfg=green
+hi Search cterm=NONE ctermfg=grey ctermbg=blue
+colorscheme default
+
+"free keys
+"` ~  N E I
+
+"no highlight mahchparent
+let g:loaded_matchparen=1
+
+"information about file
+:noremap ` :echo expand('%:p')<enter>
+
+:noremap n i
+:noremap i :
+
+"save,save and quit,exit in terminal, open tab, tab left, tab rigth, save all tabs
+:noremap y :up<enter>
+:noremap ; :wq<enter>
+:noremap u :w<enter><C-z>
+
+"movements
+:noremap <Space> G
+:noremap g 10j
+:noremap j 10k
+
+:noremap G 1000j
+:noremap J 1000k
+
+:noremap d j
+:noremap h k
+:noremap s f
+:noremap e F
+:noremap r ;
+:noremap ) ^f)i
+:noremap % ^f%i
+:noremap S $
+:noremap E ^
+:noremap / %
+
+:noremap m o
+:noremap l O
+:noremap k A
+
+:noremap <C-a> h
+:noremap <C-r> l
+
+"remove
+:noremap t s
+:noremap c dd
+:noremap C d^
+:noremap v ciw
+:noremap f dt
+:noremap F D
+:noremap C d^
+:noremap <F1> Gdd<C-o>
+:noremap x ggVGc
+
+:noremap , u
+:noremap . <C-R>
+
+"copy
+:noremap O y
+:noremap u yyp
+:noremap W :%w!
+
+:noremap q gg
+:noremap b zz
+:noremap z Gzz
+
+"repeat last, repeat last in searh, no higlight search result, go to other bracket
+:noremap > n.
+:noremap ] :nohlsearch<enter>
+:noremap ' n
+:noremap [ N
+
+:noremap \ :echo 
+
+"marks
+:noremap } m
+:noremap B `
+
+:noremap V my
+:noremap K `yzz
+
+:noremap ) ]`
+:noremap ( [`
+
+"enable/disable some options
+:noremap * :syntax on<enter>
+:noremap $ :syntax off<enter>
+
+:noremap <F3> :set fileencoding<enter>
+:noremap <F4> :e ++enc=cp1251<enter>
+
+:noremap a v
+
+"reduce text
+:noremap C zf
+:noremap X zo
+:noremap <F5> :loadview<enter>
+:noremap <F6> :mkview<enter>
+
+":noremap R <C-g>
+:noremap Z :%s/
+
+:noremap < o
+:noremap > O
+
+:noremap N '.
+
+:noremap o /
+
+:inoremap <tab> <C-p>
+:inoremap <C-p> <tab>
+
+set shortmess=A
+highlight Pmenu ctermbg=gray guibg=gray
+highlight PmenuSel ctermbg=white guibg=white
+
+
+:noremap C :.,$d<enter>
+:noremap T daW
+
+:highlight LineNr ctermfg=3
+
+function! CommentHash()
+  if matchstr(getline(line(".")),'^\s*\#.*$') == ''
+    :execute "s:^:#:"
+  else
+    :execute "s:^\s*#::"
+  endif
+endfunction
+
+function! CommentDoubleSlash()
+        if matchstr(getline(line(".")),'^\s*\/\/.*$') == ''
+                :execute "s:^://:"
+        else
+                :execute "s:^\s*//::"
+        endif
+endfunction
+
+function! CommentDoubleQuote()
+        if matchstr(getline(line(".")),'^\s*\".*$') == ''
+                :execute "s:^:\":"
+        else
+                :execute "s:^\s*\"::"
+        endif
+endfunction
+
+
+:noremap I :call CommentHash()<enter>:echo  <enter>
+autocmd BufWinEnter *php* :noremap I :call CommentDoubleSlash()<enter>:echo  <enter>
+autocmd BufWinEnter *.c* :noremap I :call CommentDoubleSlash()<enter>:echo  <enter>
+autocmd BufWinEnter *.cs* :noremap I :call CommentDoubleSlash()<enter>:echo  <enter>
+autocmd BufWinEnter *.vimrc* :noremap I :call CommentDoubleQuote()<enter>:echo  <enter>
+autocmd BufWinEnter *.vimrc* setlocal syntax=OFF
+autocmd BufWinEnter *.zshrc* setlocal syntax=OFF
+
+:noremap U :s/^/    / <enter>:nohlsearch<enter>:echo  <enter>
+:noremap Y :s/^    // <enter>:nohlsearch<enter>:echo  <enter>
+:noremap : :s/^/""" / <enter>:nohlsearch<enter>:echo  <enter>
+
+:noremap P d^
+:noremap w :set invnumber<enter>:echo <enter>
+
+
+
+:noremap l :call append(line('.')-1, '')<enter>:-<enter>:echo <enter>
+:noremap m :call append(line('.'), '')<enter>:+<enter>:echo  <enter>
+
+:noremap <C-t> x
+:noremap R :%s/
+
+":abbr c call(" ", shell=True)
+:noremap { :nohlsearch<enter>
+
+"search autocompletion in folder where file
+":set complete=k**/*
+:set complete=.
+:set complete+=k~/Desktop/LISTS/completion.txt
+
+
+":noremap P :s/^/print()/g<enter>:execute "normal! llllll"<enter>:nohlsearch<enter>:echo  <enter>
+":noremap P :s/^/print("")/g<enter>:execute "normal! lllllll"<enter>:nohlsearch<enter>:echo  <enter>
+
+"set shortmess=a
+"set cmdheight=2
+
+:colorscheme delek
+
+"set clipboard=unnamed
+
+
+
+":noremap p p:-d<enter>yy:echo  <enter>
+":noremap P "_cw<C-R>"<Esc>
+:noremap P viwp 
+":noremap V yiw
+
+"set linebreak
+
+
