@@ -6,7 +6,12 @@ additional line
 
 
 
+
+
 di () {
-   echo "\033[1m`file /dev/$1`\033[0m" && udevadm info -a --name /dev/$1 | sed '/""/d' | sed -E -e '/Udevadm|walks|found|rule|single/d' | sed '/^$/d' 
+   echo "\033[1m`file ./$1`\033[0m" && udevadm info -a --name ./$1 | sed '/""/d' | sed -E -e '/Udevadm|walks|found|rule|single/d' | sed '/looking/d' | sed '/^$/d' | grep -E 'KERNEL|SUBSYSTEM|SUBSYSTEMS|DRIVERS|interface|vendor|device|idVendor|idProduct|manufacturer|product|name|phys|path|speed|model|firmware'
 }
+
+
+
 
