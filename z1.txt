@@ -1,2 +1,13 @@
 z1
 additional line
+
+
+function di {
+   udevadm info -a --name /dev/$1 | head -33 
+}
+
+
+
+
+
+
