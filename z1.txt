@@ -2,12 +2,12 @@ z1
 additional line
 
 
-function di {
-   udevadm info -a --name /dev/$1 | head -33 
+
+
+
+di () {
+	echo "\033[1m/dev/$1\033[0m" && file /dev/$1 && udevadm info -a --name /dev/$1 | sed '/""/d' | sed -E -e '/Udevadm|walks|found|rule|single/d'
 }
-
-
-
 
 
 
