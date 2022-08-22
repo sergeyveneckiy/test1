@@ -1,0 +1,41 @@
+from flask import Flask, render_template, Response
+
+import cv2 
+video_capture = cv2.VideoCapture(0) 
+
+def camera_stream():
+    ret, frame = video_capture.read()
+
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+    return cv2.imencode('.jpg', frame)[1].tobytes()
+
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
+def gen_frame():
+    """Video streaming generator function."""
+    while True:
+        frame = camera_stream()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n') # concate frame one by one and show result
+
+
+@app.route('/stream')
+def video_feed():
+    """Video streaming route. Put this in the src attribute of an img tag."""
+    return Response(gen_frame(),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', threaded=True)
+
+
+
+
