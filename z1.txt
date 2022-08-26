@@ -17,4 +17,4 @@ cvlc v4l2:///dev/video0 :v4l2-standard= :live-caching=300 :sout="#transcode{vcod
 
 cvlc -vvv v4l2:///dev/video0 --sout '#transcode{vcodec=mp2v,vb=800,acodec=none}:rtp{dst=127.0.0.1,port=5004,mux=ts}'
 
-
+vlc -vvv --network-caching 200 rtp://127.0.0.1:5004/
